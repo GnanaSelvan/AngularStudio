@@ -1,13 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="angular.js"></script> 
 
-<html ng-app>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello Angular</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
-  </head>
-  <body>
-    Welcome to Angular Studio {{name}}!!!
-   <br>
-    <input ng-model="name" placeholder ="Please type in your name" type="text"/> 
-  </body>
+    <script src="Business.js"></script>
+    
+
+</head>
+<body ng-app="myApp" ng-init="name='Gnana'; Age='16'; objectArray=[{State:'Tamilnadu',Capital:'Chennai'},{State:'Karnataka',Capital:'Bangalore'}]">
+    <div ng-hide="true">
+        Hello World
+        {{5+6}}
+
+        <div ng-controller="myController">
+            myController---<br />
+            {{message}} {{Age}}
+            <br />
+        </div>
+        <div ng-controller="myController2">
+            <div ng-repeat="object in india">
+                wont work
+                {{object.State}}
+                {{object.Capital}}
+            </div>
+
+        </div>
+
+
+
+
+
+        <div>
+            <br />
+            4. Various valid expressions {{}} in angular <br />
+            {{1==1}} <br />
+            {{['Gnana','Selvan','Cognizant'][1]}} <br />
+            {{{name:'Gnana',Age:'16'}.name}} <br />
+        </div>
+        <div ng-repeat="object in objectArray">
+            {{object.State}}
+            {{object.Capital}}
+        </div>
+    </div>
+   
+    <div ng-controller="facebook" ng-hide="true">
+        **************************************
+        {{message}}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Likes/Dislikes</th>
+                <th>Salary</th>
+                <th>DOB</th>
+                <th>Fans</th>
+            </tr>
+            <tr ng-repeat="profile in Details">
+                <td>{{profile.Name | uppercase}}</td>
+                <td>{{profile.Likes}}</td>
+                <td>{{profile.Dislikes}}</td>
+                <td><input type="button" value="Likes" ng-click="AddLikes(profile)" />
+                    <input type="button" value="Dislikes" ng-click="AddDislikes(profile)" /></td>
+                <td>{{profile.Salary | currency: $}}</td>
+                <td>{{profile.DOB | date:"dd/MMM/yyyy"}}</td>
+                <td>{{profile.Fans | number:0}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div ng-controller="serviceController" ng-hide="false">
+        *****************FAcebook News*********************
+        <p>
+            <!--{{greeting}}-->
+            status-  {{greeting.status}}
+            source- {{greeting.source}}
+            sortBy- {{greeting.sortBy}}
+
+
+        </p>
+        Rows to display <input type="number" step="1" min="1" max="10" ng-model="rowsCount" />
+        Search News <input type="text" ng-model="searchterm" placeholder="Search News" />
+        Filter Unwanted News <input type="text" ng-model="searchterm" placeholder="Filter Unwanted Terms" />
+
+        <!--<div ng-repeat="content in articles | limitTo: rowsCount">-->
+        <div ng-repeat="content in articles |filter:'!' + searchterm :true ">
+            Author ---   {{content.author}} <br />
+            Title---   {{content.title }} <br />
+            Description----   {{content.description}} <br />
+            Url--- <a></a>  {{content.url}} <br />
+            <img ng-src="{{content.urlToImage}}" height="40" width="60"><br />
+            PublishedAt---  {{content.publishedAt}} <br />
+
+            <br /><br />
+        </div>
+    </div>
+
+    <div ng-controller="WebService" ng-hide="true"  >
+       ****************************FETCHING DATA from SQL DB using WEBSERVICE************************
+      
+        <table>
+            <tr>               
+                <th>policytxnid</th>
+                <th>pulledby</th>
+                <th>pulledstatus</th>                
+            </tr>
+            <tr ng-repeat="emp in employee | orderBy : 'PolicyTxnId' ">
+                <td>{{emp.PolicyTxnId }}</td>
+                <td>{{emp.PulledBy}}</td>
+                <td>{{emp.PulledStatus}}</td>
+
+            </tr>
+        </table>
+    </div>
+
+
+    <div ng-controller="facebook" ng-show="false" >
+        ************************************** Sorting Data using Filters*********************
+      
+        <table>
+            <tr>
+                <th ng-click="sortvalue= 'Name'; reverse=!reverse">Name</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Likes/Dislikes</th>
+                <th>Salary</th>
+                <th>DOB</th>
+                <th ng-click="sortvalue= 'Fans'">Fans</th>
+            </tr>
+            <tr ng-repeat="profile in Details | orderBy: sortvalue : reverse ">
+                <td>{{profile.Name }}</td>
+                <td>{{profile.Likes}}</td>
+                <td>{{profile.Dislikes}}</td>
+                <td>
+                    <input type="button" value="Likes" ng-click="AddLikes(profile)" />
+                    <input type="button" value="Dislikes" ng-click="AddDislikes(profile)" />
+                </td>
+                <td>{{profile.Salary | currency: $}}</td>
+                <td>{{profile.DOB | date:"dd/MMM/yyyy"}}</td>
+                <td>{{profile.Fans | number:0}}</td>
+            </tr>
+        </table>
+
+        
+    </div>
+
+    <div ng-controller="WebService" ng-hide="true">
+        ****************************USING CUSTOM FILTER************************
+
+        <table>
+            <tr>
+                <th>policytxnid</th>
+                <th>pulledby</th>
+                <th>pulledstatus</th>
+            </tr>
+            <tr ng-repeat="emp in employee | orderBy : 'PolicyTxnId' | unique : 'PolicyTxnId' ">
+                <td>{{emp.PolicyTxnId }}</td>
+                <td>{{emp.PulledBy}}</td>
+                <td>{{emp.PulledStatus}}</td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div ng-controller="todo" ng-hide="true">
+        ************************TODO APP ************************
+        <div>
+            <form ng-submit="AddItems()">
+                {{message}} <br />
+                <input type="text" ng-model="items" placeholder="Enter today's list " />
+                <input type="submit" value="Add" />
+                <br />
+                <div>
+                    <ul>
+                        <li ng-repeat="list in enteredItems ">  {{list}} 
+                        <a ng-click="DeleteItems(list)" href="">x</a></li>
+                    </ul>
+
+                </div>
+            </form>
+        </div>
+       
+    </div>
+
+    <div ng-controller="todoname">
+        ******WElcome to Todo APP***************
+        <form ng-submit="AddItems()">
+            <br />
+            {{message}}
+            <input type="text" placeholder="Enter the list of items" ng-model="TextLabel" />
+            <br />
+
+            <input type="submit" value="Add" />
+            <ul>
+                <li ng-repeat="item in items ">  {{item}} <a ng-click="DeleteItems(item)" href="">x</a></li>
+            </ul>
+        </form>
+
+
+    </div>
+</body>
 </html>
