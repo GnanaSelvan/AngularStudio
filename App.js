@@ -7,12 +7,14 @@
 //5. ng-init
 //6. ng-repeat
 
-
+//1. Registering a new module
 var App = angular.module('myApp',[]);
 var Controller = App.controller('myController', function ($scope) {
     $scope.message = "Hi Gnana";
 });
 
+
+//2. Creating a new controller
 var Controller1 = App.controller('myController2', function ($scope) {
     $scope.message = "Hi Selvan";
     var india = [
@@ -23,6 +25,8 @@ var Controller1 = App.controller('myController2', function ($scope) {
     $scope.india = india;
 });
 
+
+//3. Creaing controller for Facebook Likes APP
 var Controller3 = App.controller('facebook', function ($scope) {
     $scope.message = "Welcome to Facebook";
     var Details = [
@@ -46,6 +50,8 @@ var Controller3 = App.controller('facebook', function ($scope) {
 
 });
 
+
+//4. Fetching data from Web API using $http service
 var serviceController = App.controller('serviceController', function ($scope, $http) {
     $scope.message = "HI"
     $http.get('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=2d0cea8f0e794d85bccdf5cc9c0f95d0')
@@ -56,7 +62,7 @@ var serviceController = App.controller('serviceController', function ($scope, $h
 });
 
 
-
+//5. Fetching data from local DB using ASP.NET WebService
 var WebserviceController = App.controller('WebService', function ($scope, $http) {
     $scope.webmessage = "HI"
     $http.post('WebService1.asmx/GetData')
@@ -66,6 +72,8 @@ var WebserviceController = App.controller('WebService', function ($scope, $http)
     });
 });
 
+
+//6. Creaing custom filter
 App.filter('unique', function () {
 
     return function (items, filterOn) {
@@ -105,7 +113,7 @@ App.filter('unique', function () {
     };
 });
 
-
+//7. TODO App
 var todoCtrl = App.controller('todo', function ($scope) {
 
     $scope.message = "Welcome to TODO APP";
@@ -121,6 +129,7 @@ var todoCtrl = App.controller('todo', function ($scope) {
    
 })
 
+//8. TODO Sample APP
 var Toctrl2 = App.controller('todoname', function ($scope) {
     $scope.message = "Hi!";
     $scope.items = [];
